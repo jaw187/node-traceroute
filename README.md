@@ -18,7 +18,9 @@ traceroute.trace('google.com', function (err,hops) {
   if (!err) console.log(hops);
 });
 ```
+
 This example would write the following to the console if run from my network...
+
 ```javascript
 [ { '66.97.5.249': [ 43.206, 43.377, 43.379 ] },
   { '216.182.7.102': [ 43.575, 43.799, 43.808 ] },
