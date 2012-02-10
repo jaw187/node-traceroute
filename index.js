@@ -1,1 +1,1 @@
-exports=require('./traceroute');
+module.exports = require('./traceroute');
