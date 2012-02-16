@@ -83,7 +83,7 @@ function trace(host,cb) {
         });
       }
       else {
-        traceroute = child.exec('traceroute -n ' + host, function (err,stdout,stderr) {
+        traceroute = child.exec('traceroute -q 1 -n ' + host, function (err,stdout,stderr) {
           if (!err)
             parseOutput(stdout,cb);
         });
