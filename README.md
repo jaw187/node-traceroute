@@ -1,7 +1,7 @@
 node-traceroute
 ===============
 
-Simple wrapper around native traceroute command forked from https://github.com/jaw187/node-traceroute. Each hop contains the hosts in that hop and the respective round trip times of each host.
+Simple wrapper around native traceroute command. Each hop contains the hosts in that hop and the respective round trip times of each host.
 
 Install
 -------

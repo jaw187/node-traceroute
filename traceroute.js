@@ -124,7 +124,7 @@ function trace(host, callback) {
     dns.lookup(host, lookupCallback);
 }
 
-function stream(host, callback) {
+function stream(host, callback, doneBack) {
     callback = callback || function() {};
     host = (host + '').toUpperCase();
 
@@ -161,6 +161,12 @@ function stream(host, callback) {
             data = data + '';
             callback(new Error(data));
         });
+
+        traceroute.on('error', doneBack);
+        traceroute.on('close', function () {
+            doneBack();
+        });
+
     }
 
     dns.lookup(host, lookupCallback);

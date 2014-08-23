@@ -1,8 +1,11 @@
 {
   "author": "James Weston <james@tenseven.org>",
   "name": "traceroute",
-  "description": "Wrapper around native traceroute command",
+  "description": "Wrapper around native traceroute command, with streaming option.",
   "version": "0.0.1",
+  "scripts": {
+      "test": "node test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/jaw187/node-traceroute.git"
@@ -10,6 +13,7 @@
   "engines": {
     "node": "~0.6.5"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "tape": "^2.14.0"
+  }
 }
