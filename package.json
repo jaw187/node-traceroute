@@ -5,10 +5,14 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaw187/node-traceroute.git},
+    "url": "git://github.com/jaw187/node-traceroute.git"
+  },
   "engines": {
-    "node": "~0.6.5"
+    "node": ">=4.0.0"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "code": "^2.1.0",
+    "lab": "^9.1.0"
+  }
 }
