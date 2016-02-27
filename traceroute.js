@@ -64,8 +64,8 @@ internals.parseHopWin = function (line) {
         return false;
     }
 
-    var hop = {};
-    hop[line[4]] = [ +line[1], +line[2], +line[3] ];
+    const hop = {};
+    hop[line[4]] = [+line[1], +line[2], +line[3]];
 
     return hop;
 };
@@ -82,8 +82,8 @@ internals.parseHopNix = function (line) {
 
     hop[line[1]] = [+line[2]];
 
-    for (let i = 3; i < line.length; i++) {
-        if (net.isIP(line[i])) {
+    for (let i = 3; i < line.length; ++i) {
+        if (Net.isIP(line[i])) {
             lastip = line[i];
             if (!hop[lastip]) {
                 hop[lastip] = [];
@@ -100,13 +100,13 @@ internals.parseHopNix = function (line) {
 internals.parseOutput = function (output) {
 
     const lines = output.split('\n');
-    const hops=[];
+    const hops = [];
 
     lines.shift();
     lines.pop();
 
     if (internals.isWin) {
-        for (let i = 0; i < lines.length; i++) {
+        for (let i = 0; i < lines.length; ++i) {
             if (/^\s+1/.test(lines[i])) {
                 break;
             }
@@ -116,7 +116,7 @@ internals.parseOutput = function (output) {
         lines.pop();
     }
 
-    for (let i = 0; i < lines.length; i++) {
+    for (let i = 0; i < lines.length; ++i) {
         hops.push(internals.parseHop(lines[i]));
     }
 
