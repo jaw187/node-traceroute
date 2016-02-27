@@ -12,7 +12,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "code": "^2.1.0",
-    "lab": "^9.1.0"
+    "code": "2.x.x",
+    "lab": "9.x.x"
   }
 }
