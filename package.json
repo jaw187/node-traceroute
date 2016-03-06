@@ -24,7 +24,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "lab -v"
+    "test": "lab -v -m 20000"
   },
   "keywords": [
     "traceroute",
