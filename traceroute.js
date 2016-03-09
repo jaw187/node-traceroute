@@ -25,7 +25,7 @@ internals.Traceroute.trace = function (host, callback) {
             return callback(new Error('Invalid host'));
         }
 
-        const command = (internals.isWin ? 'tracert -d ' : 'traceroute -q 1 -n ') + host;
+        const command = (internals.isWin ? 'tracert ' : 'traceroute -q 1 ') + host;
         Child.exec(command, (err, stdout, stderr) => {
 
             if (err) {
@@ -111,7 +111,7 @@ internals.parseOutput = function (output) {
                 break;
             }
         }
-        lines.splice(0,i);
+        //lines.splice(0,i);
         lines.pop();
         lines.pop();
     }
