@@ -10,10 +10,9 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "code": "2.x.x",
-    "lab": "9.x.x"
+    "lab": "10.x.x"
   },
   "bugs": {
     "url": "https://github.com/jaw187/node-traceroute/issues"
