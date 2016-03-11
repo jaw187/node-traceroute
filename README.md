@@ -31,9 +31,9 @@ trace.on('done', (hops) => {
 
 ## Async
 ```javascript
-const traceroute = require('traceroute');
+const Traceroute = require('traceroute');
 
-traceroute.trace('google.com', (err, hops) => {
+Traceroute.trace('google.com', (err, hops) => {
 
     if (err) {
         throw err;
