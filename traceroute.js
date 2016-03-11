@@ -3,8 +3,10 @@
 
 const Child = require('child_process');
 const Dns = require('dns');
+const EventEmitter = require('events');
 const Net = require('net');
 const Os = require('os');
+const Util = require('util');
 
 
 const internals = {};
@@ -18,6 +20,13 @@ module.exports = internals.Traceroute = {};
 
 internals.Traceroute.trace = function (host, callback) {
 
+    const Emitter = function () {
+
+        EventEmitter.call(this);
+    };
+    Util.inherits(Emitter, EventEmitter);
+    const emitter = new Emitter();
+
     Dns.lookup(host.toUpperCase(), (err) => {
 
         if (err && Net.isIP(host) === 0) {
@@ -26,7 +35,6 @@ internals.Traceroute.trace = function (host, callback) {
 
         const command = (internals.isWin ? 'tracert' : 'traceroute');
         const args = internals.isWin ? ['-d', host] : ['-q', 1, '-n', host];
-
         const traceroute = Child.spawn(command, args);
 
         const hops = [];
@@ -45,17 +53,20 @@ internals.Traceroute.trace = function (host, callback) {
 
             const hop = internals.parseHop(result);
             hops.push(hop);
+            emitter.emit('hop', hop);
         });
 
         traceroute.on('close', (code) => {
 
             if (callback) {
-                return callback(null, hops);
+                callback(null, hops);
             }
-        });
 
-        return traceroute;
+            emitter.emit('done', hops);
+        });
     });
+    
+    return emitter;
 };
 
 

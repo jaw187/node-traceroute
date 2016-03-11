@@ -24,4 +24,16 @@ describe('Traceroute', () => {
             done();
         });
     });
+
+    it('streams traceroute results', (done) => {
+
+        const trace = Traceroute.trace('8.8.8.8');
+
+        trace.on('hop', (hop) => {
+
+            expect(hop).to.exist();
+            trace.removeAllListeners();
+            done();
+        });
+    });
 });

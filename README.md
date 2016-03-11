@@ -1,21 +1,45 @@
 node-traceroute
 ===============
 
-Simple wrapper around native traceroute command.  A trace in node will return an array of hops.  Each hop contains the hosts in that hop and the respective round trip times of each host.
+Simple wrapper around native traceroute command.  Each hop contains the hosts in that hop and the respective round trip times of each host.
 
-Install
--------
+# Install
 
 ```
 $ npm install traceroute
 ```
 
-Example
--------
+# Usage
+The `trace` method will always return a steam and will call an optional callback when done.
+
+## Stream
 ```javascript
-traceroute = require('traceroute');
-traceroute.trace('google.com', function (err,hops) {
-  if (!err) console.log(hops);
+const Traceroute = require('traceroute');
+
+const trace = Traceroute.trace('google.com');
+
+trace.on('data', (hop) => {
+
+    console.log(hop)
+});
+
+trace.on('done', (hops) => {
+
+    console.log(hops);
+});
+```
+
+## Async
+```javascript
+const traceroute = require('traceroute');
+
+traceroute.trace('google.com', (err, hops) => {
+
+    if (err) {
+        throw err;
+    }
+
+    console.log(hops);
 });
 ```
 
