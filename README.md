@@ -18,7 +18,7 @@ const Traceroute = require('traceroute');
 
 const trace = Traceroute.trace('google.com');
 
-trace.on('data', (hop) => {
+trace.on('hop', (hop) => {
 
     console.log(hop)
 });
