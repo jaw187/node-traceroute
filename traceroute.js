@@ -8,7 +8,7 @@ const Net = require('net');
 const Os = require('os');
 const Util = require('util');
 
-
+const defaultMaxNullHops = 5;
 const internals = {};
 
 
@@ -18,10 +18,18 @@ internals.isWin = /^win/.test(Os.platform());
 module.exports = internals.Traceroute = {};
 
 
-internals.Traceroute.trace = function (host, callback) {
+internals.Traceroute.trace = function (host, maxNullHops, callback) {
+
+    if (typeof maxNullHops === 'function' && callback === undefined) {
+        callback = maxNullHops;
+        maxNullHops = defaultMaxNullHops;
+    } else if (maxNullHops === undefined) {
+        maxNullHops = defaultMaxNullHops;
+    } else if (!Number.isInteger(maxNullHops)) {
+        throw new Error('second parameter must be a callback or an integer');
+    }
 
     const Emitter = function () {
-
         EventEmitter.call(this);
     };
     Util.inherits(Emitter, EventEmitter);
@@ -39,6 +47,7 @@ internals.Traceroute.trace = function (host, callback) {
 
         const hops = [];
         let counter = 0;
+        let nullHops = 0;
         traceroute.stdout.on('data', (data) => {
 
             ++counter;
@@ -54,6 +63,18 @@ internals.Traceroute.trace = function (host, callback) {
             const hop = internals.parseHop(result);
             hops.push(hop);
             emitter.emit('hop', hop);
+
+            if (hop === false) {
+                // count every null hop received
+                nullHops++;
+            } else {
+                // reset nullHops counter when a valid hop is received
+                nullHops = 0;
+            }
+            // send a sigint to kill the traceroute process when it reach $maxNullHops hops in a row
+            if (nullHops >= maxNullHops) {
+                traceroute.kill('SIGINT');
+            }
         });
 
         traceroute.on('close', (code) => {

@@ -36,4 +36,17 @@ describe('Traceroute', () => {
             done();
         });
     });
+
+    it('traces a fake route and quits after 5 hops in a row', (done) => {
+
+        Traceroute.trace('127.0.0.127', (err, hops) => {
+
+            expect(err).to.not.exist();
+            expect(hops).to.exist();
+            for (let hop of hops) {
+                expect(hop).to.equal(false);
+            }
+            done();
+        });
+    });
 });
