@@ -25,8 +25,6 @@ internals.Traceroute.trace = function (host, maxNullHops, callback) {
         maxNullHops = defaultMaxNullHops;
     } else if (maxNullHops === undefined) {
         maxNullHops = defaultMaxNullHops;
-    } else if (!Number.isInteger(maxNullHops)) {
-        throw new Error('second parameter must be a callback or an integer');
     }
 
     const Emitter = function () {
@@ -72,7 +70,7 @@ internals.Traceroute.trace = function (host, maxNullHops, callback) {
                 nullHops = 0;
             }
             // send a sigint to kill the traceroute process when it reach $maxNullHops hops in a row
-            if (nullHops >= maxNullHops) {
+            if (maxNullHops && nullHops >= maxNullHops) {
                 traceroute.kill('SIGINT');
             }
         });
