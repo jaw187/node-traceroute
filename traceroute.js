@@ -28,6 +28,8 @@ internals.Traceroute.trace = function (host, callback) {
     const emitter = new Emitter();
 
     Dns.lookup(host.toUpperCase(), (err) => {
+        
+        console.log("TESTING");
 
         if (err && Net.isIP(host) === 0) {
             return callback(new Error('Invalid host'));
