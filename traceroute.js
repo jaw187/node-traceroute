@@ -34,7 +34,7 @@ internals.Traceroute.trace = function (host, callback) {
         }
 
         const command = (internals.isWin ? 'tracert' : 'traceroute');
-        const args = internals.isWin ? ['-d', host] : ['-q', 1, '-n', host];
+       // const args = internals.isWin ? ['-d', host] : ['-q', 1, '-n', host];
         const traceroute = Child.spawn(command, args);
 
         const hops = [];
